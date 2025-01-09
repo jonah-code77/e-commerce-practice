@@ -1,5 +1,6 @@
-//DATA STRUCTURE
 
+//DATA STRUCTURE
+/*
 const products = [{
   image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
   name:'Black and Gray Athletic Cotton Socks - 6 Pairs',
@@ -25,6 +26,8 @@ const products = [{
     },
     priceInCents:799
 }]
+*/
+
 
 let productHtml = ""
 products.forEach((product)=>{
@@ -48,7 +51,7 @@ products.forEach((product)=>{
           </div>
 
           <div class="product-price">
-           ${(product.priceInCents / 100).toFixed(2)};
+           ${(product.priceCents / 100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
