@@ -1,6 +1,16 @@
 
 //DATA STRUCTURE
 /*
+syntax for data attribue
+Data attribute is just an html attribute
+-have to start with "data-"
+-then give it any name
+
+name                         value
+<data-[product-name]   =   ${product.name}>
+     kabel case
+*/
+/*
 const products = [{
   image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
   name:'Black and Gray Athletic Cotton Socks - 6 Pairs',
@@ -76,7 +86,8 @@ products.forEach((product)=>{
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart"
+          data-product-name="${product.id}>
             Add to Cart
           </button>
         </div>
@@ -88,4 +99,31 @@ products.forEach((product)=>{
 
 document.querySelector('.js-product-grid')
   .innerHTML=productHtml;
+
+//Add To Cart
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button)=>{
+    button.addEventListener('click',()=>{
+      const productId = button-dataset.productId;
+      let matchingItem;
+
+      //Loop Through The Cart To see if the Id matches any item in the cart first
+      cart.forEach((item)=>{
+        if(productId === item.productId){
+          matchingItem = item;
+        }
+      })
+      //if its a matching item then the quantity is increase by 1
+      if (matchingItem){
+        matchingItem.quantity +=1
+      }else{
+        //if its not a matching item then the item is added to the cart
+        cart.push({
+          productName:productId,
+          quantity:1
+        })
+      };
+
+    });
+  });
   
