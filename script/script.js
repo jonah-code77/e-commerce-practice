@@ -38,7 +38,7 @@ const products = [{
 }]
 */
 
-import {cart} from '../data/cart.js'
+import {cart,addToCart} from '../data/cart.js'
 import { products } from '../data/products.js';
 
 let productHtml = ""
@@ -100,6 +100,19 @@ products.forEach((product)=>{
 )
 
 
+
+function updateCart(){
+  //variable to store the total number of cartQuantity
+  let cartQuantity = 0;
+  //loop through the cart to add the quantity together
+  cart.forEach((carItem) => {
+    cartQuantity += carItem.quantity;
+  });
+  document.querySelector('.js-cart-quantity')
+    .innerHTML=cartQuantity;
+
+}
+
 document.querySelector('.js-product-grid')
   .innerHTML=productHtml;
 
@@ -110,39 +123,8 @@ document.querySelectorAll('.js-add-to-cart')
     let addedMessageTimeoutId;
     button.addEventListener('click',()=>{
       const productId = button.dataset.productId;
-      let matchingItem;
-
-      //Loop Through The Cart To see if the Id matches any item in the cart first
-      cart.forEach((item)=>{
-        if(productId === item.productId){
-          matchingItem = item;
-        }
-      })
-
-      //using selector to add to the quantity
-      const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
-      const quantity = Number(quantitySelector.value)
-
-      //if its a matching item then the quantity, do not increase the cart quantity instead increase the product quantity
-      if (matchingItem){
-        matchingItem.quantity = quantity;
-      }else{
-        //if its not a matching item then the item is added to the cart
-        cart.push({
-          productId,
-          quantity
-
-        })
-      }
-
-      //variable to store the total number of cartQuantity
-      let cartQuantity = 0;
-      //loop through the cart to add the quantity together
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
-      });
-      document.querySelector('.js-cart-quantity')
-        .innerHTML=cartQuantity;
+      addToCart(productId);
+      updateCart();
 
       const addedMessage = document.querySelector(
         `.js-added-to-cart-${productId}`
