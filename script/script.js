@@ -38,7 +38,7 @@ const products = [{
 }]
 */
 
-import {cart,addToCart} from '../data/cart.js'
+import {cart,addToCart,calculateCartQuantity} from '../data/cart.js'
 import { products } from '../data/products.js';
 import { formatCurrency } from './utills/money.js';
 
@@ -103,22 +103,17 @@ products.forEach((product)=>{
 
 
 function updateCart(){
-  //variable to store the total number of cartQuantity
-  let cartQuantity = 0;
-  //loop through the cart to add the quantity together
-  cart.forEach((carItem) => {
-    cartQuantity += carItem.quantity;
-  });
+  const cartQuantity = calculateCartQuantity();
   document.querySelector('.js-cart-quantity')
     .innerHTML=cartQuantity;
-
 }
 
 document.querySelector('.js-product-grid')
   .innerHTML=productHtml;
 
-//Add To Cart
+  updateCart();  
 
+//Add To Cart
 document.querySelectorAll('.js-add-to-cart')
   .forEach((button)=>{
     let addedMessageTimeoutId;
