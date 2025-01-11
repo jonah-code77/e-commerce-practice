@@ -123,6 +123,7 @@ document.querySelectorAll('.js-add-to-cart')
   .forEach((button)=>{
     let addedMessageTimeoutId;
     button.addEventListener('click',()=>{
+      //dataset---to acess the data value
       const productId = button.dataset.productId;
       addToCart(productId);
       updateCart();
