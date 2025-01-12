@@ -11,7 +11,10 @@ import { products,getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utills/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import { deliveryOptions,getDeliveryOption } from "../../data/deliveryoptions.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
+
+//regenerate 
 export function renderSummary(){
     let cartSummaryHtml = '';
     cart.forEach((carItem)=>{
@@ -117,7 +120,7 @@ export function renderSummary(){
         return html;
     
     }
-
+    //delete link event listiner
     document.querySelector('.js-order-summary')
         .innerHTML = cartSummaryHtml;
         document.querySelectorAll('.js-delete-link')
@@ -128,6 +131,7 @@ export function renderSummary(){
             const container = document.querySelector(`.js-cart-item-container-${productId}`);
             container.remove();
             cartNumber();
+            renderPaymentSummary();
             });
         });
 
@@ -137,7 +141,8 @@ export function renderSummary(){
         .innerHTML = `${cartQuantity} items`;
         };
     cartNumber();
-
+    
+    //update quantity link
     document.querySelectorAll('.js-update-link')
         .forEach((link)=>{
             link.addEventListener('click',()=>{
@@ -149,6 +154,7 @@ export function renderSummary(){
             })
         })
 
+        //update & save link
         document.querySelectorAll('.js-save-link')
         .forEach((link) => {
         link.addEventListener('click', () => {
@@ -174,12 +180,14 @@ export function renderSummary(){
         });
         });
 
+        //update deliverydates and make the page interactive
         document.querySelectorAll('.js-delivery-optiion')
             .forEach((element)=>{
                 element.addEventListener('click',()=>{
                     const {productId,deliveryOptionId} = element.dataset;
                     updateDeliveryOption(productId,deliveryOptionId);
                     renderSummary();
+                    renderPaymentSummary();
                 });
             });
 };
