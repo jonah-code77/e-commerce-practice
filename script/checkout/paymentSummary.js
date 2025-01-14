@@ -3,6 +3,8 @@ import { getProduct } from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryoptions.js';
 import { formatCurrency } from '../utills/money.js';
 
+
+
 export function renderPaymentSummary(){
     let productPricecent = 0;
     let shippingPriceCent = 0;
@@ -64,6 +66,9 @@ export function renderPaymentSummary(){
         const cartQuantity = calculateCartQuantity();
         document.querySelector('.js-payment-item')
         .innerHTML = `Items (${cartQuantity}):`
+        
         };
     cartNumber();
+    
 }
+renderPaymentSummary();
