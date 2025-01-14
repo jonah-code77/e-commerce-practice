@@ -1,3 +1,6 @@
+
+import { formatCurrency } from "../script/utills/money.js";
+
 export function getProduct(productId){
       let matchingProduct;
       products.forEach((product) => {
@@ -7,7 +10,39 @@ export function getProduct(productId){
           
       });
       return matchingProduct;
+      
 }
+
+
+//using Class to generate object
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+  constructor (productDetails){
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.rating = productDetails.rating;
+    this.name = productDetails.name;
+    this.priceCents = productDetails.priceCents;
+
+  }
+
+  //to calculate the star
+  getStarsUrl(){
+    return `images/ratings/rating-${this.rating.stars *10}.png`;
+  }
+
+  //to calculate price
+  getPrice(){
+    return `$${formatCurrency(this.priceCents)}`;
+    }
+}
+
+
 
 export const products = [
   {
@@ -668,4 +703,7 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails)=>{
+  return new Product(productDetails)
+
+});
