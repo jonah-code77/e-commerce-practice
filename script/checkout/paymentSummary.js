@@ -3,6 +3,8 @@ import { getProduct } from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryoptions.js';
 import { formatCurrency } from '../utills/money.js';
 
+
+
 export function renderPaymentSummary(){
     let productPricecent = 0;
     let shippingPriceCent = 0;
@@ -51,7 +53,8 @@ export function renderPaymentSummary(){
                 <div class="payment-summary-money">${formatCurrency(totalCent)}</div>
             </div>
 
-            <button class="place-order-button button-primary">
+            <button class="place-order-button button-primary
+            js-place-order">
                 Place your order
             </button>
   `;
@@ -64,6 +67,13 @@ export function renderPaymentSummary(){
         const cartQuantity = calculateCartQuantity();
         document.querySelector('.js-payment-item')
         .innerHTML = `Items (${cartQuantity}):`
+        
         };
     cartNumber();
+
+    document.querySelector('.js-place-order')
+        .addEventListener('click', ()=>{
+            alert('your order has been placed');
+        })
+    
 }

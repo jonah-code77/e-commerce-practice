@@ -1,3 +1,6 @@
+
+import { formatCurrency } from "../script/utills/money.js";
+
 export function getProduct(productId){
       let matchingProduct;
       products.forEach((product) => {
@@ -7,7 +10,60 @@ export function getProduct(productId){
           
       });
       return matchingProduct;
+      
 }
+
+
+//using Class to generate the product object
+//parent class
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+  constructor (productDetails){
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.rating = productDetails.rating;
+    this.name = productDetails.name;
+    this.priceCents = productDetails.priceCents;
+
+  }
+
+  //to calculate the star
+  getStarsUrl(){
+    return `images/ratings/rating-${this.rating.stars *10}.png`;
+  }
+
+  //to calculate price
+  getPrice(){
+    return `$${formatCurrency(this.priceCents)}`;
+    }
+
+    extraInfoHtml(){
+      return '';
+    }
+}
+
+//inheritance
+class clothing extends Product{
+  sizeChartLink;
+  constructor(productDetails){
+        //we use super(productDetails) we use it to call the parent construstor
+        super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+
+  }
+
+  extraInfoHtml(){
+    return `
+    <a href="${this.sizeChartLink}" target="_blank">Size Chart</a>
+    `;
+  }
+}
+
 
 export const products = [
   {
@@ -668,4 +724,11 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails)=>{
+  if(productDetails.type === 'clothing'){
+    return new clothing(productDetails);
+  }
+  return new Product(productDetails);
+});
+
+
