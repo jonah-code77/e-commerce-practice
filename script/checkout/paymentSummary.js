@@ -53,7 +53,8 @@ export function renderPaymentSummary(){
                 <div class="payment-summary-money">${formatCurrency(totalCent)}</div>
             </div>
 
-            <button class="place-order-button button-primary">
+            <button class="place-order-button button-primary
+            js-place-order">
                 Place your order
             </button>
   `;
@@ -69,6 +70,10 @@ export function renderPaymentSummary(){
         
         };
     cartNumber();
+
+    document.querySelector('.js-place-order')
+        .addEventListener('click', ()=>{
+            alert('your order has been placed');
+        })
     
 }
-renderPaymentSummary();
