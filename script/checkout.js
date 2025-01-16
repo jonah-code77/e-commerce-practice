@@ -6,14 +6,19 @@ import { loadCart } from "../data/cart.js";
 //async makes a function return a promise
 //await can only be use inside asyn function
 async function loadPage(){
-
-    await loadProductFetch();
-
-   await new Promise((resolve)=>{
-        loadCart(()=>{      
-          resolve();
-       });
-    })
+    try{
+        //throw 'error1'
+        await loadProductFetch();
+        const value = await new Promise((resolve,reject)=>{
+            //throw 'error22'
+             loadCart(()=>{    
+                //reject('error3')  
+               resolve();
+            });
+         })
+    }catch(error){
+        console.log('unexpected error');
+    }
     renderSummary();
     renderPaymentSummary();
 
