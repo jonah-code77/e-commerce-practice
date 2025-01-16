@@ -134,6 +134,7 @@ export function renderSummary(){
             });
         });
 
+    //cartQuantity 
     function cartNumber(){
         const cartQuantity = calculateCartQuantity();
         document.querySelector('.js-return-to-home-link')
