@@ -2,7 +2,7 @@ import {cart,calculateCartQuantity} from '../../data/cart.js';
 import { getProduct } from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryoptions.js';
 import { formatCurrency } from '../utills/money.js';
-
+import { addOrder } from '../../data/orders.js';
 
 
 export function renderPaymentSummary(){
@@ -71,9 +71,35 @@ export function renderPaymentSummary(){
         };
     cartNumber();
 
+
+
     document.querySelector('.js-place-order')
-        .addEventListener('click', ()=>{
-            alert('your order has been placed');
+        .addEventListener('click', async ()=>{
+            try {
+            const response = await fetch('https://supersimplebackend.dev/orders',{
+                method: 'POST',
+                headers:{
+                    'Content-type': 'application/json'
+                },
+                body:JSON.stringify({
+                    cart:cart 
+                })
+            });
+            const order = await response.json();
+            addOrder(order);
+            } catch (error) {
+                console.log('unexpected error');
+            }
+
+            window.location.href = 'orders.html'
         })
     
-}
+};
+
+/*
+types of request
+GET = get something from the backend
+post = create something
+put = update something
+delete = delete something
+*/
